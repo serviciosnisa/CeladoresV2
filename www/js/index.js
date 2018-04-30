@@ -25,6 +25,7 @@ var app = {
         url= "https://webutil.nisa.es/utilidadesWeb/jsp/registrarIdDispositivo";
         var params = "idDispositivo="+id;
         Ajax.open("POST", url, true);        // true = asincrono, no espera a que finalice
+        Ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         try{
           Ajax.onreadystatechange = function() {
               if(Ajax.readyState==4 && Ajax.status==200) {
@@ -33,6 +34,7 @@ var app = {
                 document.getElementById("informacion").innerHTML = "Error " + Ajax.responseText;
               }
           };
+          document.getElementById("informacion").innerHTML = params;
           Ajax.send(params);
         }catch(err){
                 document.getElementById("informacion").innerHTML = "Error " + err;
@@ -77,7 +79,7 @@ var app = {
 
         push.on('registration', function(data) {
 
-app.registrarId(data.registrationId);
+
             console.log('registration event: ' + data.registrationId);
 
             var oldRegId = localStorage.getItem('registrationId');
@@ -85,7 +87,7 @@ app.registrarId(data.registrationId);
                 // Save new registration ID
                 localStorage.setItem('registrationId', data.registrationId);
                 // Post registrationId to your app server as the value has changed
-
+                app.registrarId(data.registrationId);
             }
             var parentElement = document.getElementById('registration');
             var listeningElement = parentElement.querySelector('.waiting');
