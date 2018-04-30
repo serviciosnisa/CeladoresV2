@@ -17,6 +17,23 @@
  * under the License.
  */
 var app = {
+
+  registrarId: function(id) {
+
+        var Ajax  = new XMLHttpRequest();
+
+        url= "https://10.1.96.36/utilidadesWeb/jsp/registrarIdDispositivo";
+
+        Ajax.open("GET", url, true);        // true = asincrono, no espera a que finalice
+        Ajax.onreadystatechange = function() {
+            if(Ajax.readyState==4 && Ajax.status==200) {
+                document.getElementById("informacion").innerHTML = Ajax.responseText;
+            }else{
+              document.getElementById("informacion").innerHTML = "Error " + Ajax.readyState + " " + Ajax.status;
+            }
+        };
+        Ajax.send();
+    },
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -34,6 +51,8 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+
+        app.registrarId("12");
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

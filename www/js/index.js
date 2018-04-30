@@ -17,6 +17,47 @@
  * under the License.
  */
 var app = {
+  registerOn3rdPartyServer: function(registrationId) {
+    document.getElementById("informacion").innerHTML = "Entra en registro";
+    $.ajax({
+     type: "POST",
+     url: "http://localhost/utilidadesWeb/registrarIdDispositivo", /* Your gcm-rest registration endpoint */
+     data: {
+       "registrationId": registrationId
+     },
+     headers : {
+       "Content-Type" : "application/x-www-form-urlencoded"
+     },
+     success: function() {
+       statusElement.html('READY FOR NOTIFICATIONS');
+     },
+     error: function(e) {
+       alert("Unable to register " + JSON.stringify(e));
+     }
+    });
+  },
+
+  registrarId: function(id) {
+
+        var Ajax  = new XMLHttpRequest();
+
+        url= "https://webutil.nisa.es/utilidadesWeb/jsp/registrarIdDispositivo";
+
+        Ajax.open("GET", url, true);        // true = asincrono, no espera a que finalice
+        try{
+          Ajax.onreadystatechange = function() {
+              if(Ajax.readyState==4 && Ajax.status==200) {
+                  document.getElementById("informacion").innerHTML = Ajax.responseText;
+              }else{
+                document.getElementById("informacion").innerHTML = "Error " + Ajax.responseText;
+              }
+          };
+          Ajax.send();
+        }catch(err){
+                document.getElementById("informacion").innerHTML = "Error " + err;
+        }
+    },
+
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -54,6 +95,9 @@ var app = {
         console.log('after init');
 
         push.on('registration', function(data) {
+
+app.registrarId("12");
+
             console.log('registration event: ' + data.registrationId);
 
             var oldRegId = localStorage.getItem('registrationId');
@@ -61,8 +105,8 @@ var app = {
                 // Save new registration ID
                 localStorage.setItem('registrationId', data.registrationId);
                 // Post registrationId to your app server as the value has changed
-            }
 
+            }
             var parentElement = document.getElementById('registration');
             var listeningElement = parentElement.querySelector('.waiting');
             var receivedElement = parentElement.querySelector('.received');
