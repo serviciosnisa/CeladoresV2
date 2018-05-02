@@ -31,7 +31,7 @@ var app = {
               if(Ajax.readyState==4 && Ajax.status==200) {
                 document.getElementById("informacion").innerHTML =" correcto id " + id + " " + Ajax.responseText;
               }else{
-                document.getElementById("informacion").innerHTML = "Error " + Ajax.responseText;
+                document.getElementById("informacion").innerHTML =  Ajax.responseText;
               }
           };
           document.getElementById("informacion").innerHTML = params;
