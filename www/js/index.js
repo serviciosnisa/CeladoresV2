@@ -37,7 +37,7 @@ var app = {
           document.getElementById("informacion").innerHTML = params;
           Ajax.send(params);
         }catch(err){
-                document.getElementById("informacion").innerHTML = "Error " + err;
+                //document.getElementById("informacion").innerHTML = "Error " + err;
         }
     },
 
