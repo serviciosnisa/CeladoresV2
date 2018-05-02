@@ -1,9 +1,9 @@
 {
   "name": "My App",
   "description": "Description of your app",
-  "launch_path": "/index.html",
+  "launch_path": "/index.html", 
   "icons": {
-    "128": "/img/logo.png"
+    "128": "/img/logo.jpg"
   },
   "default_locale": "en",
   "type": "privileged"
