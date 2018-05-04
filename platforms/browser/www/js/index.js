@@ -17,24 +17,29 @@
  * under the License.
  */
 var app = {
-  registerOn3rdPartyServer: function(registrationId) {
-    $.ajax({
-     type: "POST",
-     url: "http://localhost/utilidadesWeb/registrarIdDispositivo", /* Your gcm-rest registration endpoint */
-     data: {
-       "registrationId": registrationId
-     },
-     headers : {
-       "Content-Type" : "application/x-www-form-urlencoded"
-     },
-     success: function() {
-       statusElement.html('READY FOR NOTIFICATIONS');
-     },
-     error: function(e) {
-       alert("Unable to register " + JSON.stringify(e));
-     }
-    });
-  },
+
+  registrarId: function(id) {
+
+        var Ajax  = new XMLHttpRequest();
+
+        url= "https://webutil.nisa.es/utilidadesWeb/jsp/registrarIdDispositivo";
+        var params = "idDispositivo="+id;
+        Ajax.open("POST", url, true);        // true = asincrono, no espera a que finalice
+        Ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        try{
+          Ajax.onreadystatechange = function() {
+              if(Ajax.readyState==4 && Ajax.status==200) {
+                document.getElementById("informacion").innerHTML =" correcto id " + id + " " + Ajax.responseText;
+              }else{
+                document.getElementById("informacion").innerHTML =  Ajax.responseText;
+              }
+          };
+          document.getElementById("informacion").innerHTML = params;
+          Ajax.send(params);
+        }catch(err){
+                document.getElementById("informacion").innerHTML =  err;
+        }
+    },
 
     // Application Constructor
     initialize: function() {
@@ -73,6 +78,8 @@ var app = {
         console.log('after init');
 
         push.on('registration', function(data) {
+
+
             console.log('registration event: ' + data.registrationId);
 
             var oldRegId = localStorage.getItem('registrationId');
@@ -80,9 +87,8 @@ var app = {
                 // Save new registration ID
                 localStorage.setItem('registrationId', data.registrationId);
                 // Post registrationId to your app server as the value has changed
-                registerOn3rdPartyServer("12");
+                app.registrarId(data.registrationId);
             }
-
             var parentElement = document.getElementById('registration');
             var listeningElement = parentElement.querySelector('.waiting');
             var receivedElement = parentElement.querySelector('.received');
