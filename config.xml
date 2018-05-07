@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.vithas.nisa.CeladoresV2" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>CeladoresV1</name>
+    <name>CeladoresV2</name>
     <description>
         Aplicación para envío de notificaciones a celadores
     </description>
