@@ -26,7 +26,7 @@ var app = {
         var params = "idDispositivo="+id;
         Ajax.open("POST", url, true);        // true = asincrono, no espera a que finalice
         Ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        try{
+        try{ 
           Ajax.onreadystatechange = function() {
               if(Ajax.readyState==4 && Ajax.status==200) {
                 document.getElementById("informacion").innerHTML =" correcto id " + id + " " + Ajax.responseText;
