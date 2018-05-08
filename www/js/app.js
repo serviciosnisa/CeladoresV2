@@ -1,6 +1,6 @@
 // (a) Configure Profound UI settings
 
-pui["serverURL"] ="http://h9oi5.nisa:8080/";
+pui["serverURL"] ="https://i5nisa.nisa.es";
 pui["language"] = "en_US";
 pui["no focus"] = true;
 
